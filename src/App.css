@@ -1,5 +1,14 @@
+:root {
+  /* Theme colors provided by issue */
+  --color-primary: #014331; /* deep green */
+  --color-accent: #b47868;  /* warm rose */
+  --color-background: #fffdf4; /* soft cream */
+}
+
 .App {
   text-align: center;
+  background: var(--color-background);
+  color: var(--color-primary);
 }
 
 .App-logo {
@@ -14,18 +23,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--color-primary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--color-background);
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--color-accent);
 }
 
 @keyframes App-logo-spin {

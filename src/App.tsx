@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import WeddingTasks from './components/WeddingTasks/WeddingTasks';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <main style={{ padding: '1rem', textAlign: 'left' }}>
+        <WeddingTasks />
+      </main>
     </div>
   );
 }

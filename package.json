@@ -11,15 +11,21 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-scripts": "5.0.1",
+    "tailwindcss": "^3.4.14",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "concurrently -k \"npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch --minify\" \"react-scripts start\"",
+    "build": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --minify && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

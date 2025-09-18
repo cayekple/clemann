@@ -54,18 +54,10 @@ function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox.open]);
 
-  // Build gallery from local images in src/assets/img (excluding hero 1.jpeg) when available.
-  // In non-webpack environments (like Jest), fall back to Unsplash placeholders.
+  // Build gallery from local images in src/assets/img (excluding hero 1.jpeg).
+  // No external fallbacks; if none are found, the gallery remains empty.
   const reqAny = require as any;
-  const fallbackImages: { src: string; alt: string }[] = [
-    { src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop', alt: 'Couple holding hands at sunset' },
-    { src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop', alt: 'Wedding bouquet close up' },
-    { src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop', alt: 'Bride smiling outdoors' },
-    { src: 'https://images.unsplash.com/photo-1522335789203-9d3b5b6a0b1f?q=80&w=1200&auto=format&fit=crop', alt: 'Groom adjusting tie' },
-    { src: 'https://images.unsplash.com/photo-1460364157752-97ab1d0b762a?q=80&w=1200&auto=format&fit=crop', alt: 'Wedding rings on book' },
-    { src: 'https://images.unsplash.com/photo-1522335789203-09d99e7d58f1?q=80&w=1200&auto=format&fit=crop', alt: 'Dancing at reception' },
-  ];
-  let images: { src: string; alt: string }[] = fallbackImages;
+  let images: { src: string; alt: string }[] = [];
   try {
     if (typeof reqAny?.context === 'function') {
       const galleryContext = reqAny.context('./assets/img', true, /\.(png|jpe?g|webp)$/i);
@@ -73,17 +65,15 @@ function App() {
         .keys()
         .filter((k: string) => !(/\/(?:)1\.jpe?g$/i.test(k) || /^\.\/1\.jpe?g$/i.test(k)))
         .sort();
-      if (localGalleryFiles.length > 0) {
-        images = localGalleryFiles.map((key: string, index: number) => {
-          const url: string = galleryContext(key);
-          const name = (key.split('/').pop() || `photo-${index + 1}`).replace(/\.(png|jpe?g|webp)$/i, '');
-          const nice = name.replace(/[-_]/g, ' ').trim();
-          return { src: url, alt: `Gallery photo: ${nice || `photo ${index + 1}`}` };
-        });
-      }
+      images = localGalleryFiles.map((key: string, index: number) => {
+        const url: string = galleryContext(key);
+        const name = (key.split('/').pop() || `photo-${index + 1}`).replace(/\.(png|jpe?g|webp)$/i, '');
+        const nice = name.replace(/[-_]/g, ' ').trim();
+        return { src: url, alt: `Gallery photo: ${nice || `photo ${index + 1}`}` };
+      });
     }
   } catch (_) {
-    // ignore and use fallback
+    // no fallback; gallery will be empty if no local images
   }
 
   return (

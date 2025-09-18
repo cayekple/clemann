@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import coupleImg from './assets/img/1.jpeg';
+import logo from './assets/logo.svg';
 
 function App() {
   const [lightbox, setLightbox] = useState<{ open: boolean; src: string; alt: string }>(
@@ -67,7 +68,9 @@ function App() {
       {/* Navigation */}
       <nav className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-primary/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="#home" className="font-display text-xl tracking-wide">Clemence & Antoinette</a>
+          <a href="#home" className="inline-flex items-center gap-2" aria-label="Clemence & Antoinette">
+            <img src={logo} alt="Clemence & Antoinette logo" className="h-10 w-auto" />
+          </a>
           <div className="space-x-4 text-sm">
             <a href="#gallery" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Gallery</a>
             <a href="#program" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Program</a>

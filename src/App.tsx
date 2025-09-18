@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import coupleImg from './assets/img/1.jpeg';
 
 function App() {
   const [lightbox, setLightbox] = useState<{ open: boolean; src: string; alt: string }>(
@@ -84,10 +85,10 @@ function App() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <img
-                src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop"
+                src={coupleImg}
                 alt="Clemence and Antoinette smiling together"
                 loading="eager"
-                className="w-full h-80 md:h-[28rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
+                className="w-full h-96 md:h-[32rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
               />
             </div>
             <div className="text-center md:text-left">

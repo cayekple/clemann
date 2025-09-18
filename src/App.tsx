@@ -68,7 +68,7 @@ function App() {
   let images: { src: string; alt: string }[] = fallbackImages;
   try {
     if (typeof reqAny?.context === 'function') {
-      const galleryContext = reqAny.context('./assets/img', false, /\.(png|jpe?g|webp)$/);
+      const galleryContext = reqAny.context('./assets/img', true, /\.(png|jpe?g|webp)$/i);
       const localGalleryFiles: string[] = galleryContext
         .keys()
         .filter((k: string) => !(/\/(?:)1\.jpe?g$/i.test(k) || /^\.\/1\.jpe?g$/i.test(k)))

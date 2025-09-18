@@ -8,6 +8,7 @@ jest.mock('./gallery', () => ({
     { src: '/_mocked/2.jpeg', alt: 'Gallery photo: 2' },
     { src: '/_mocked/3.jpeg', alt: 'Gallery photo: 3' },
   ]),
+  getGalleryVideos: () => ([]),
 }));
 
 import App from './App';

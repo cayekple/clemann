@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import coupleImg from './assets/img/1.jpeg';
 import logo from './assets/logo.svg';
-import { getGalleryImages } from './gallery';
+import { getGalleryImages, getGalleryVideos } from './gallery';
 
 function App() {
-  const [lightbox, setLightbox] = useState<{ open: boolean; src: string; alt: string }>(
-    { open: false, src: '', alt: '' }
+  const [lightbox, setLightbox] = useState<{ open: boolean; kind: 'image' | 'video'; src: string; alt: string }>(
+    { open: false, kind: 'image', src: '', alt: '' }
   );
 
   // Countdown state
@@ -46,7 +46,7 @@ function App() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setLightbox({ open: false, src: '', alt: '' });
+        setLightbox({ open: false, kind: 'image', src: '', alt: '' });
       }
     };
     if (lightbox.open) {
@@ -55,9 +55,13 @@ function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox.open]);
 
-  // Build gallery from local images in src/assets/img (excluding hero 1.jpeg).
-  // No external fallbacks; if none are found, the gallery remains empty.
+  // Build gallery from local images and videos.
   const images = getGalleryImages();
+  const videos = getGalleryVideos();
+  const media = [
+    ...images.map((i) => ({ kind: 'image' as const, ...i })),
+    ...videos.map((v) => ({ kind: 'video' as const, ...v })),
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream to-white text-primary font-body">
@@ -141,14 +145,23 @@ function App() {
           <h2 id="gallery-heading" className="font-display text-3xl md:text-4xl mb-6">Our Gallery</h2>
           <p className="text-primary/70 mb-8">A few of our favorite moments together.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {images.map((img) => (
+            {media.map((item) => (
               <button
-                key={img.src}
+                key={item.src}
                 className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-primary/10 bg-white/20 backdrop-blur-sm shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream transform hover:-translate-y-0.5"
-                onClick={() => setLightbox({ open: true, src: img.src, alt: img.alt })}
-                aria-label={`Open photo: ${img.alt}`}
+                onClick={() => setLightbox({ open: true, kind: item.kind, src: item.src, alt: item.alt })}
+                aria-label={`Open ${item.kind === 'video' ? 'video' : 'photo'}: ${item.alt}`}
               >
-                <img src={img.src} alt={img.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                {item.kind === 'video' ? (
+                  <>
+                    <video src={item.src} muted playsInline preload="metadata" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">▶</span>
+                    </div>
+                  </>
+                ) : (
+                  <img src={item.src} alt={item.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                )}
               </button>
             ))}
           </div>
@@ -209,16 +222,20 @@ function App() {
 
       {/* Lightbox Modal */}
       {lightbox.open && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Image lightbox" onClick={() => setLightbox({ open: false, src: '', alt: '' })}>
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Media lightbox" onClick={() => setLightbox({ open: false, kind: 'image', src: '', alt: '' })}>
           <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
             <button
-              onClick={() => setLightbox({ open: false, src: '', alt: '' })}
+              onClick={() => setLightbox({ open: false, kind: 'image', src: '', alt: '' })}
               className="absolute -top-3 -right-3 bg-white text-primary rounded-full w-10 h-10 shadow focus:outline-none focus:ring-2 focus:ring-accent"
               aria-label="Close"
             >
               ✕
             </button>
-            <img src={lightbox.src} alt={lightbox.alt} className="w-full rounded-lg" />
+            {lightbox.kind === 'video' ? (
+              <video src={lightbox.src} controls autoPlay playsInline className="w-full rounded-lg" />
+            ) : (
+              <img src={lightbox.src} alt={lightbox.alt} className="w-full rounded-lg" />
+            )}
           </div>
         </div>
       )}

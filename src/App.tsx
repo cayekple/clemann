@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import coupleImg from './assets/img/1.jpeg';
 import logo from './assets/logo.svg';
+import { getGalleryImages } from './gallery';
 
 function App() {
   const [lightbox, setLightbox] = useState<{ open: boolean; src: string; alt: string }>(
@@ -56,25 +57,7 @@ function App() {
 
   // Build gallery from local images in src/assets/img (excluding hero 1.jpeg).
   // No external fallbacks; if none are found, the gallery remains empty.
-  const reqAny = require as any;
-  let images: { src: string; alt: string }[] = [];
-  try {
-    if (typeof reqAny?.context === 'function') {
-      const galleryContext = reqAny.context('./assets/img', true, /\.(png|jpe?g|webp)$/i);
-      const localGalleryFiles: string[] = galleryContext
-        .keys()
-        .filter((k: string) => !(/\/(?:)1\.jpe?g$/i.test(k) || /^\.\/1\.jpe?g$/i.test(k)))
-        .sort();
-      images = localGalleryFiles.map((key: string, index: number) => {
-        const url: string = galleryContext(key);
-        const name = (key.split('/').pop() || `photo-${index + 1}`).replace(/\.(png|jpe?g|webp)$/i, '');
-        const nice = name.replace(/[-_]/g, ' ').trim();
-        return { src: url, alt: `Gallery photo: ${nice || `photo ${index + 1}`}` };
-      });
-    }
-  } catch (_) {
-    // no fallback; gallery will be empty if no local images
-  }
+  const images = getGalleryImages();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream to-white text-primary font-body">

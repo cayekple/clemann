@@ -44,3 +44,31 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Deploy to GitHub Pages
+
+This project is preconfigured to deploy to GitHub Pages at:
+
+- homepage: https://cayekple.github.io/clemann/
+- gh-pages branch is used for static hosting.
+
+You have two ways to deploy:
+
+1) Local one-off deploy (manual)
+- Ensure you are on main with latest changes pushed.
+- Run: npm install (first time) and npm run deploy
+- This builds the app and publishes build/ to the gh-pages branch using the gh-pages CLI.
+
+2) Automatic deploy via GitHub Actions (recommended)
+- A workflow is included at .github/workflows/deploy.yml.
+- It builds and deploys on every push to main (or manual trigger via Actions tab).
+- One-time repo settings:
+  - Settings → Pages → Build and deployment → Source: GitHub Actions.
+- After a successful run, your site will be available at the homepage URL above.
+
+Notes
+- The homepage field in package.json is already set for a repository subpath (cayekple.github.io/clemann). Keep it updated if you rename the repo.
+- Node 18 LTS is used in CI to match CRA 5 expectations.
+- No React Router is used. If you add routing later, configure a 404.html redirect strategy or HashRouter for GitHub Pages.
+- Custom domain: Configure it under Settings → Pages (and add a CNAME file) if you use a custom domain.

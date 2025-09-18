@@ -173,19 +173,19 @@ function App() {
             <h2 id="program-heading" className="font-display text-3xl md:text-4xl mb-6">Program of the Day</h2>
             <ul className="grid md:grid-cols-3 gap-6">
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Ceremony</h3>
-                <p className="text-primary/70">2:00 PM • St. George’s Height, Dobro on the Nsawam road</p>
-                <p className="mt-2 text-sm text-primary/70">Join us under the oaks as we exchange vows.</p>
+                <h3 className="font-semibold">Musical Interlude</h3>
+                <p className="text-primary/70">10:00 AM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">Prelude music to welcome everyone.</p>
               </li>
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Cocktail Hour</h3>
-                <p className="text-primary/70">3:30 PM • St. George’s Height, Dobro on the Nsawam road</p>
-                <p className="mt-2 text-sm text-primary/70">Sip, mingle, and enjoy light bites.</p>
+                <h3 className="font-semibold">Arrival of Guests</h3>
+                <p className="text-primary/70">11:00 AM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">Guests arrive and take their seats.</p>
               </li>
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Dinner & Dancing</h3>
-                <p className="text-primary/70">5:00 PM • St. George’s Height, Dobro on the Nsawam road</p>
-                <p className="mt-2 text-sm text-primary/70">Celebrate the night away with us!</p>
+                <h3 className="font-semibold">Arrival of Groom & Bride</h3>
+                <p className="text-primary/70">11:45 AM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">Processional and grand entrance.</p>
               </li>
             </ul>
           </div>

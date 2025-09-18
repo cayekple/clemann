@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/clemann/static/css/main.8adaccdd.css",
+    "main.js": "/clemann/static/js/main.3531d65b.js",
+    "static/js/453.23de91bd.chunk.js": "/clemann/static/js/453.23de91bd.chunk.js",
+    "index.html": "/clemann/index.html",
+    "main.8adaccdd.css.map": "/clemann/static/css/main.8adaccdd.css.map",
+    "main.3531d65b.js.map": "/clemann/static/js/main.3531d65b.js.map",
+    "453.23de91bd.chunk.js.map": "/clemann/static/js/453.23de91bd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8adaccdd.css",
+    "static/js/main.3531d65b.js"
+  ]
+}

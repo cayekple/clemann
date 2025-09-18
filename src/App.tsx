@@ -54,7 +54,10 @@ function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox.open]);
 
-  const images = [
+  // Build gallery from local images in src/assets/img (excluding hero 1.jpeg) when available.
+  // In non-webpack environments (like Jest), fall back to Unsplash placeholders.
+  const reqAny = require as any;
+  const fallbackImages: { src: string; alt: string }[] = [
     { src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop', alt: 'Couple holding hands at sunset' },
     { src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop', alt: 'Wedding bouquet close up' },
     { src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop', alt: 'Bride smiling outdoors' },
@@ -62,9 +65,33 @@ function App() {
     { src: 'https://images.unsplash.com/photo-1460364157752-97ab1d0b762a?q=80&w=1200&auto=format&fit=crop', alt: 'Wedding rings on book' },
     { src: 'https://images.unsplash.com/photo-1522335789203-09d99e7d58f1?q=80&w=1200&auto=format&fit=crop', alt: 'Dancing at reception' },
   ];
+  let images: { src: string; alt: string }[] = fallbackImages;
+  try {
+    if (typeof reqAny?.context === 'function') {
+      const galleryContext = reqAny.context('./assets/img', false, /\.(png|jpe?g|webp)$/);
+      const localGalleryFiles: string[] = galleryContext
+        .keys()
+        .filter((k: string) => !(/\/(?:)1\.jpe?g$/i.test(k) || /^\.\/1\.jpe?g$/i.test(k)))
+        .sort();
+      if (localGalleryFiles.length > 0) {
+        images = localGalleryFiles.map((key: string, index: number) => {
+          const url: string = galleryContext(key);
+          const name = (key.split('/').pop() || `photo-${index + 1}`).replace(/\.(png|jpe?g|webp)$/i, '');
+          const nice = name.replace(/[-_]/g, ' ').trim();
+          return { src: url, alt: `Gallery photo: ${nice || `photo ${index + 1}`}` };
+        });
+      }
+    }
+  } catch (_) {
+    // ignore and use fallback
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream to-white text-primary font-body">
+      {/* Skip to content for accessibility */}
+      <a href="#mainContent" className="absolute left-[-9999px] focus:left-4 focus:top-4 focus:z-50 focus:bg-cream focus:text-primary focus:px-3 focus:py-2 focus:rounded-md focus:shadow" aria-label="Skip to main content">
+        Skip to content
+      </a>
       {/* Navigation */}
       <nav className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-primary/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -91,6 +118,8 @@ function App() {
                 src={coupleImg}
                 alt="Clemence and Antoinette smiling together"
                 loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="w-full h-96 md:h-[32rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
               />
             </div>
@@ -133,7 +162,7 @@ function App() {
         </section>
       )}
 
-      <main aria-hidden={lightbox.open}>
+      <main id="mainContent" aria-hidden={lightbox.open} tabIndex={-1}>
         {/* Gallery */}
         <section id="gallery" aria-labelledby="gallery-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20">
           <h2 id="gallery-heading" className="font-display text-3xl md:text-4xl mb-6">Our Gallery</h2>

@@ -187,6 +187,26 @@ function App() {
                 <p className="text-primary/70">11:45 AM • St. George’s Height, Dobro on the Nsawam road</p>
                 <p className="mt-2 text-sm text-primary/70">Processional and grand entrance.</p>
               </li>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
+                <h3 className="font-semibold">Chairman's Opening Remarks</h3>
+                <p className="text-primary/70">11:50 AM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">Welcome and opening address by the chairman.</p>
+              </li>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
+                <h3 className="font-semibold">Song 131 & Opening Prayer</h3>
+                <p className="text-primary/70">1:55 AM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">Congregational song followed by prayer.</p>
+              </li>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
+                <h3 className="font-semibold">Marriage Discourse "Honorable Marriage in God's Sight"</h3>
+                <p className="text-primary/70">12:00 PM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">A discourse on the sanctity and honor of marriage.</p>
+              </li>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
+                <h3 className="font-semibold">Song 132 & Closing Prayer</h3>
+                <p className="text-primary/70">12:30 PM • St. George’s Height, Dobro on the Nsawam road</p>
+                <p className="mt-2 text-sm text-primary/70">Final song and closing prayer.</p>
+              </li>
             </ul>
           </div>
         </section>

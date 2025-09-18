@@ -78,7 +78,12 @@ function App() {
           <div className="space-x-4 text-sm">
             <a href="#gallery" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Gallery</a>
             <a href="#program" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Program</a>
+            <a href="#song-131" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Songs</a>
             <a href="#reception" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Reception</a>
+            <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
+              <span aria-hidden="true">📍</span>
+              <span>Directions</span>
+            </a>
           </div>
         </div>
       </nav>
@@ -105,6 +110,18 @@ function App() {
               <h1 className="font-display text-4xl md:text-6xl tracking-tight leading-tight mb-4">Clemence Ayekple & Antoinette Seyram Agbo</h1>
               <p className="text-lg md:text-xl text-primary/80">Saturday, October 25, 2025</p>
               <p className="text-base md:text-lg text-primary/70">St. George’s Height, Dobro on the Nsawam road</p>
+              <div className="mt-4">
+                <a
+                  href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-5 py-3 text-base shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                  aria-label="Get directions to St. George’s Height (opens in new tab)"
+                >
+                  <span aria-hidden="true">📍</span>
+                  <span>Get Directions</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -208,6 +225,68 @@ function App() {
                 <p className="mt-2 text-sm text-primary/70">Final song and closing prayer.</p>
               </li>
             </ul>
+          </div>
+        </section>
+
+        {/* Song 131 */}
+        <section id="song-131" aria-labelledby="song131-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 text-center">
+          <h2 id="song131-heading" className="font-display text-3xl md:text-4xl mb-2">Song 131 — “What God Has Yoked Together”</h2>
+          <p className="text-primary/70 mb-6">(Matthew 19:5, 6)</p>
+          <div className="space-y-6 leading-relaxed text-primary/90">
+            <div>
+              <h3 className="font-semibold mb-2">1. Verse</h3>
+              <p>With dignity and joy,</p>
+              <p>A threefold cord is bound.</p>
+              <p>With God and men to witness,</p>
+              <p>These sacred vows resound.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Chorus 1</h3>
+              <p>He vowed before Jehovah</p>
+              <p>To love her from the heart.</p>
+              <p>“What God has yoked together,</p>
+              <p>Let no man put apart.”</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">2. Verse</h3>
+              <p>They both have searched God’s Word</p>
+              <p>To learn to do his will,</p>
+              <p>And now they seek his blessing,</p>
+              <p>Their promise to fulfill.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Chorus 2</h3>
+              <p>She vowed before Jehovah</p>
+              <p>To love him from the heart.</p>
+              <p>“What God has yoked together,</p>
+              <p>Let no man put apart.”</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Song 132 */}
+        <section id="song-132" aria-labelledby="song132-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 text-center">
+          <h2 id="song132-heading" className="font-display text-3xl md:text-4xl mb-2">Song 132 — “Now We Are One”</h2>
+          <p className="text-primary/70 mb-6">(Genesis 2:23, 24)</p>
+          <div className="space-y-6 leading-relaxed text-primary/90">
+            <div>
+              <h3 className="font-semibold mb-2">1. Verse</h3>
+              <p>This is at last bone of my bone,</p>
+              <p>Flesh of my flesh; now I’m not alone.</p>
+              <p>God has provided a partner,</p>
+              <p>Someone to call my own.</p>
+              <p>Now we are one; now there can be</p>
+              <p>Blessings to share for you and for me.</p>
+              <p>As man and woman together,</p>
+              <p>We are a family.</p>
+              <p>Ev’ry day we’ll serve our God above.</p>
+              <p>As he shows the way,</p>
+              <p>Unfailing love we’ll display.</p>
+              <p>As we have vowed, so may it be.</p>
+              <p>Seasons of joy, may we come to see.</p>
+              <p>Oh, may we honor Jehovah,</p>
+              <p>And may you always be my love.</p>
+            </div>
           </div>
         </section>
 

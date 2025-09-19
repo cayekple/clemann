@@ -101,6 +101,7 @@ function App() {
               <a href="#program" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Program</a>
               <a href="#side-activity" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Side Activity</a>
               <a href="#song-131" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Songs</a>
+              <a href="#photography" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Photography</a>
               <a href="#reception" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Reception</a>
               <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
                 <span aria-hidden="true">📍</span>
@@ -128,6 +129,7 @@ function App() {
               <a href="#program" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Program</a>
               <a href="#side-activity" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Side Activity</a>
               <a href="#song-131" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Songs</a>
+              <a href="#photography" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Photography</a>
               <a href="#reception" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Reception</a>
               <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" onClick={() => setMenuOpen(false)} className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition">
                 <span aria-hidden="true">📍</span>
@@ -409,34 +411,60 @@ function App() {
             <div>
               <p className="text-primary/80">St. George’s Height</p>
               <p className="text-primary/60">Dobro on the Nsawam road</p>
-              <a
-                className="inline-block mt-4 text-accent underline underline-offset-4 hover:text-primary"
-                href="https://maps.google.com/?q=St.%20George%E2%80%99s%20Height%2C%20Dobro%20on%20the%20Nsawam%20road"
-                target="_blank" rel="noreferrer"
-              >
-                View on Google Maps
-              </a>
-              <p className="mt-6 text-sm text-primary/70">Formal attire. Valet parking available.</p>
+                <a
+                    className="inline-block mt-4 text-accent underline underline-offset-4 hover:text-primary"
+                    href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw"
+                    target="_blank" rel="noreferrer"
+                >
+                    View on Google Maps
+                </a>
+                {/* Program for the reception */}
+                <div className="mt-10">
+                    <h3 className="font-semibold text-2xl mb-3">Program schedule</h3>
+                    <ol className="list-decimal pl-6 space-y-2 text-primary/80" aria-label="Program for the reception">
+                        <li>Musical Interlude at 1:20pm</li>
+                        <li>Arrival of Bride & Groom</li>
+                        <li>Opening Prayer</li>
+                        <li>Musical Interlude & Refreshment</li>
+                        <li>Bride & Groom first dance</li>
+                        <li>Bridal train dance</li>
+                        <li>Songs by bride's friends</li>
+                        <li>Pick & Act</li>
+                        <li>Bouquet Unlocking</li>
+                        <li>Bride & Groom Parent dance</li>
+                        <li>Guest Dance</li>
+                        <li>Bride & Groom introducing the wedding tree</li>
+                        <li>Chairman's closing remarks at 3:55pm</li>
+                        <li>Vote of thanks</li>
+                        <li>Closing prayer at 4pm</li>
+                    </ol>
+                </div>
             </div>
-            <div className="rounded-xl overflow-hidden border border-primary/10">
-              <img
-                src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1400&auto=format&fit=crop"
-                alt="Reception hall interior"
-                loading="lazy"
-                className="w-full h-64 object-cover"
-              />
-            </div>
+              <div className="rounded-xl overflow-hidden border border-primary/10">
+                  <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1016748.4486248771!2d-1.4447492699217541!3d5.466389923746282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf0b0f14c4c71f%3A0xed87a48bbb7779d9!2sSt%20George&#39;s%20Height!5e0!3m2!1sen!2sgh!4v1758265450386!5m2!1sen!2sgh"
+                      loading="lazy"
+                      className="w-full h-96 rounded-lg border-0"
+                      allowFullScreen={true}
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Directions to St. George's Heights"
+                      aria-label="Map showing directions to St. George's Heights"
+                  ></iframe>
+              </div>
           </div>
+
+
         </section>
 
       </main>
 
-      {/* Lightbox Modal */}
-      {lightbox.open && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Media lightbox" onClick={onCloseLightbox}>
-          <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
-            <button
-              ref={closeBtnRef}
+        {/* Lightbox Modal */}
+        {lightbox.open && (
+            <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" role="dialog"
+                 aria-modal="true" aria-label="Media lightbox" onClick={onCloseLightbox}>
+                <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+                    <button
+                        ref={closeBtnRef}
               onClick={onCloseLightbox}
               className="absolute -top-3 -right-3 bg-white text-primary rounded-full w-10 h-10 shadow focus:outline-none focus:ring-2 focus:ring-accent"
               aria-label="Close"

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import coupleImg from './assets/img/1.jpeg';
 import logo from './assets/logo.svg';
+import treeImg from './assets/tree.jpeg';
 import { getGalleryImages, getGalleryVideos } from './gallery';
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
           <div className="space-x-4 text-sm">
             <a href="#gallery" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Gallery</a>
             <a href="#program" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Program</a>
+            <a href="#side-activity" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Side Activity</a>
             <a href="#song-131" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Songs</a>
             <a href="#reception" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Reception</a>
             <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
@@ -228,6 +230,7 @@ function App() {
           </div>
         </section>
 
+        
         {/* Song 131 */}
         <section id="song-131" aria-labelledby="song131-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 text-center">
           <h2 id="song131-heading" className="font-display text-3xl md:text-4xl mb-2">Song 131 — “What God Has Yoked Together”</h2>
@@ -288,6 +291,30 @@ function App() {
               <p>And may you always be my love.</p>
             </div>
           </div>
+        </section>
+
+        {/* Side Activities */}
+        <section id="side-activity" aria-labelledby="side-activity-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20">
+          <h2 id="side-activity-heading" className="font-display text-3xl md:text-4xl mb-6">Side Activity</h2>
+          <p className="text-primary/70 mb-8">A special keepsake alongside the main program.</p>
+
+          {/* Thumbprint Tree Guestbook */}
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-10">
+            <div className="rounded-xl overflow-hidden border border-primary/10 bg-white">
+              <img src={treeImg} alt="Thumbprint tree guestbook" loading="lazy" className="w-full h-auto object-contain" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-2xl mb-3">Thumbprint Tree Guestbook</h3>
+              <p className="text-primary/80">Please help us grow our tree:</p>
+              <ul className="mt-3 space-y-2 text-primary/80">
+                <li>• Dab your thumb on the ink pad.</li>
+                <li>• Gently press a leaf onto the tree.</li>
+                <li>• Sign your name next to your leaf.</li>
+              </ul>
+              <p className="mt-4 text-sm text-primary/70">Wet wipes and pens are provided. Thank you for leaving your mark on our special day!</p>
+            </div>
+          </div>
+
         </section>
 
         {/* Reception */}

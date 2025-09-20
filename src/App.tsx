@@ -485,7 +485,7 @@ function App() {
         {/* RSVP */}
         <section id="rsvp" aria-labelledby="rsvp-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
           <h2 id="rsvp-heading" className="reveal font-display text-3xl md:text-4xl mb-6">RSVP</h2>
-          <p className="reveal text-primary/70 mb-8">Kindly reach out to confirm your attendance.</p>
+          <p className="reveal text-primary/70 mb-8">Kindly reach out when you need assistant.</p>
           <div className="reveal grid sm:grid-cols-2 gap-6">
             <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-gray-800 dark:border-white/10">
               <h3 className="font-semibold flex items-center gap-2"><span aria-hidden="true">👤</span>Timothy</h3>

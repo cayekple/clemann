@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/clemann/static/css/main.aeebc6ab.css",
-    "main.js": "/clemann/static/js/main.3c93200a.js",
+    "main.css": "/clemann/static/css/main.8e5b7d69.css",
+    "main.js": "/clemann/static/js/main.b55a06bb.js",
     "static/js/453.23de91bd.chunk.js": "/clemann/static/js/453.23de91bd.chunk.js",
     "static/media/3.mp4": "/clemann/static/media/3.d887308902c53ab90145.mp4",
     "static/media/2.mp4": "/clemann/static/media/2.0d8db0e36a2e143b29e9.mp4",
@@ -21,12 +21,12 @@
     "static/media/tree.jpeg": "/clemann/static/media/tree.afd190b611c4d28e16f0.jpeg",
     "index.html": "/clemann/index.html",
     "static/media/logo.svg": "/clemann/static/media/logo.fc97222a156ceb9711f703108686d6c0.svg",
-    "main.aeebc6ab.css.map": "/clemann/static/css/main.aeebc6ab.css.map",
-    "main.3c93200a.js.map": "/clemann/static/js/main.3c93200a.js.map",
+    "main.8e5b7d69.css.map": "/clemann/static/css/main.8e5b7d69.css.map",
+    "main.b55a06bb.js.map": "/clemann/static/js/main.b55a06bb.js.map",
     "453.23de91bd.chunk.js.map": "/clemann/static/js/453.23de91bd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.aeebc6ab.css",
-    "static/js/main.3c93200a.js"
+    "static/css/main.8e5b7d69.css",
+    "static/js/main.b55a06bb.js"
   ]
 }

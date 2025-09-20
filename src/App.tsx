@@ -548,6 +548,7 @@ function App() {
                         <li>Musical Interlude & Refreshment</li>
                         <li>Bride & Groom first dance</li>
                         <li>Bridal train dance</li>
+                        <li>Groom's men dance</li>
                         <li>Songs by bride's friends</li>
                         <li>Pick & Act</li>
                         <li>Bouquet Unlocking</li>

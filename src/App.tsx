@@ -188,7 +188,7 @@ function App() {
               <a href="#side-activity" className={linkClass('side-activity')} aria-current={ariaCurrent('side-activity')}>Side Activity</a>
               <a href="#reception" className={linkClass('reception')} aria-current={ariaCurrent('reception')}>Reception</a>
               <a href="#rsvp" className={linkClass('rsvp')} aria-current={ariaCurrent('rsvp')}>RSVP</a>
-              <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
+              <a href="https://maps.app.goo.gl/Zrw9mQpnUk8nJouB7?g_st=ipc" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
                 <span aria-hidden="true">📍</span>
                 <span>Directions</span>
               </a>
@@ -227,7 +227,7 @@ function App() {
               <a href="#side-activity" onClick={() => setMenuOpen(false)} className={linkClass('side-activity')} aria-current={ariaCurrent('side-activity')}>Side Activity</a>
               <a href="#reception" onClick={() => setMenuOpen(false)} className={linkClass('reception')} aria-current={ariaCurrent('reception')}>Reception</a>
               <a href="#rsvp" onClick={() => setMenuOpen(false)} className={linkClass('rsvp')} aria-current={ariaCurrent('rsvp')}>RSVP</a>
-              <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" onClick={() => setMenuOpen(false)} className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition">
+              <a href="https://maps.app.goo.gl/Zrw9mQpnUk8nJouB7?g_st=ipc" target="_blank" rel="noreferrer noopener" onClick={() => setMenuOpen(false)} className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition">
                 <span aria-hidden="true">📍</span>
                 <span>Directions</span>
               </a>
@@ -260,11 +260,11 @@ function App() {
               <p className="text-base md:text-lg text-primary/70 dark:text-white/80">St. George’s Height, Dobro on the Nsawam road</p>
               <div className="mt-4">
                 <a
-                  href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-5 py-3 text-base shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
-                  aria-label="Get directions to St. George’s Height (opens in new tab)"
+                href="https://maps.app.goo.gl/Zrw9mQpnUk8nJouB7?g_st=ipc"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-5 py-3 text-base shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                aria-label="Get directions to St. George’s Height (opens in new tab)"
                 >
                   <span aria-hidden="true">📍</span>
                   <span>Get Directions</span>
@@ -533,7 +533,7 @@ function App() {
               <p className="text-primary/60">Dobro on the Nsawam road</p>
                 <a
                     className="inline-block mt-4 text-accent underline underline-offset-4 hover:text-primary"
-                    href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw"
+                    href="https://maps.app.goo.gl/Zrw9mQpnUk8nJouB7?g_st=ipc"
                     target="_blank" rel="noreferrer"
                 >
                     View on Google Maps

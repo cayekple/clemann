@@ -269,19 +269,21 @@ function App() {
                   <span aria-hidden="true">📍</span>
                   <span>Get Directions</span>
                 </a>
-                <div className="mt-10 flex items-center justify-center md:justify-start gap-6" aria-label="Wedding colors">
-                  <span className="sr-only">Wedding colors:</span>
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="h-10 w-10 rounded-full bg-accent" aria-label="Rose Gold" title="Rose Gold"></span>
-                    <span className="text-sm text-primary/80 dark:text-white/80">Rose Gold</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="h-10 w-10 rounded-full bg-cream border border-primary/10" aria-label="Ivory" title="Ivory"></span>
-                    <span className="text-sm text-primary/80 dark:text-white/80">Ivory</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="h-10 w-10 rounded-full bg-primary" aria-label="Dark Emerald" title="Dark Emerald"></span>
-                    <span className="text-sm text-primary/80 dark:text-white/80">Dark Emerald</span>
+                <div className="mt-10">
+                  <h3 className="text-sm uppercase tracking-widest text-primary/70 dark:text-white/70 text-center md:text-left mb-3">Wedding Colours</h3>
+                  <div className="flex items-center justify-center md:justify-start gap-6" aria-label="Wedding colors">
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="h-10 w-10 rounded-full bg-accent" aria-label="Rose Gold" title="Rose Gold"></span>
+                      <span className="text-sm text-primary/80 dark:text-white/80">Rose Gold</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="h-10 w-10 rounded-full bg-cream border border-primary/10" aria-label="Ivory" title="Ivory"></span>
+                      <span className="text-sm text-primary/80 dark:text-white/80">Ivory</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="h-10 w-10 rounded-full bg-primary" aria-label="Dark Emerald" title="Dark Emerald"></span>
+                      <span className="text-sm text-primary/80 dark:text-white/80">Dark Emerald</span>
+                    </div>
                   </div>
                 </div>
               </div>

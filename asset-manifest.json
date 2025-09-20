@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/clemann/static/css/main.8509b6dc.css",
-    "main.js": "/clemann/static/js/main.8ec3249d.js",
+    "main.js": "/clemann/static/js/main.c49a9680.js",
     "static/js/453.23de91bd.chunk.js": "/clemann/static/js/453.23de91bd.chunk.js",
     "static/media/3.mp4": "/clemann/static/media/3.d887308902c53ab90145.mp4",
     "static/media/2.mp4": "/clemann/static/media/2.0d8db0e36a2e143b29e9.mp4",
@@ -22,11 +22,11 @@
     "index.html": "/clemann/index.html",
     "static/media/logo.svg": "/clemann/static/media/logo.fc97222a156ceb9711f703108686d6c0.svg",
     "main.8509b6dc.css.map": "/clemann/static/css/main.8509b6dc.css.map",
-    "main.8ec3249d.js.map": "/clemann/static/js/main.8ec3249d.js.map",
+    "main.c49a9680.js.map": "/clemann/static/js/main.c49a9680.js.map",
     "453.23de91bd.chunk.js.map": "/clemann/static/js/453.23de91bd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8509b6dc.css",
-    "static/js/main.8ec3249d.js"
+    "static/js/main.c49a9680.js"
   ]
 }

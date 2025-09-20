@@ -643,7 +643,7 @@ function App() {
 
       {/* Footer */}
       <footer className="border-t border-primary/10 dark:border-white/10 py-8 text-center text-sm text-primary/70" aria-hidden={lightbox.open}>
-        <p>Made with love • Clemence & Antoinette • 2025</p>
+        <p>Made with love • Clem & Anette • 2025</p>
       </footer>
     </div>
   );

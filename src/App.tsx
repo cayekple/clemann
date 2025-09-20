@@ -162,6 +162,7 @@ function App() {
               <a href="#song-131" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Songs</a>
               <a href="#photography" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Photography</a>
               <a href="#reception" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Reception</a>
+              <a href="#rsvp" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">RSVP</a>
               <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
                 <span aria-hidden="true">📍</span>
                 <span>Directions</span>
@@ -200,6 +201,7 @@ function App() {
               <a href="#song-131" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Songs</a>
               <a href="#photography" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Photography</a>
               <a href="#reception" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Reception</a>
+              <a href="#rsvp" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">RSVP</a>
               <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" onClick={() => setMenuOpen(false)} className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition">
                 <span aria-hidden="true">📍</span>
                 <span>Directions</span>
@@ -478,6 +480,36 @@ function App() {
             </div>
           </div>
 
+        </section>
+
+        {/* RSVP */}
+        <section id="rsvp" aria-labelledby="rsvp-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
+          <h2 id="rsvp-heading" className="reveal font-display text-3xl md:text-4xl mb-6">RSVP</h2>
+          <p className="reveal text-primary/70 mb-8">Kindly reach out to confirm your attendance.</p>
+          <div className="reveal grid sm:grid-cols-2 gap-6">
+            <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-gray-800 dark:border-white/10">
+              <h3 className="font-semibold flex items-center gap-2"><span aria-hidden="true">👤</span>Timothy</h3>
+              <a
+                href="tel:0556661300"
+                className="mt-2 inline-flex items-center gap-2 text-accent hover:text-primary underline underline-offset-4"
+                aria-label="Call Timothy at 055 666 1300"
+              >
+                <span aria-hidden="true">📞</span>
+                055 666 1300
+              </a>
+            </div>
+            <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-gray-800 dark:border-white/10">
+              <h3 className="font-semibold flex items-center gap-2"><span aria-hidden="true">👤</span>Josaphat</h3>
+              <a
+                href="tel:0530672467"
+                className="mt-2 inline-flex items-center gap-2 text-accent hover:text-primary underline underline-offset-4"
+                aria-label="Call Josaphat at 053 067 2467"
+              >
+                <span aria-hidden="true">📞</span>
+                053 067 2467
+              </a>
+            </div>
+          </div>
         </section>
 
         {/* Reception */}

@@ -1,20 +1,22 @@
 {
   "files": {
     "main.css": "/clemann/static/css/main.8509b6dc.css",
-    "main.js": "/clemann/static/js/main.c49a9680.js",
+    "main.js": "/clemann/static/js/main.d736592e.js",
     "static/js/453.23de91bd.chunk.js": "/clemann/static/js/453.23de91bd.chunk.js",
     "static/media/3.mp4": "/clemann/static/media/3.d887308902c53ab90145.mp4",
+    "static/media/6.mp4": "/clemann/static/media/6.58e0c7358d82fb7edbfe.mp4",
     "static/media/2.mp4": "/clemann/static/media/2.0d8db0e36a2e143b29e9.mp4",
     "static/media/5.mp4": "/clemann/static/media/5.a16bf42abd2994ca605d.mp4",
     "static/media/1.mp4": "/clemann/static/media/1.608d80a6d83b228b057b.mp4",
     "static/media/4.mp4": "/clemann/static/media/4.6f4664969e6cc9e2a852.mp4",
     "static/media/4.jpeg": "/clemann/static/media/4.16eb423e2955a3f20649.jpeg",
-    "static/media/12.jpeg": "/clemann/static/media/12.c4db2e05799109f693dd.jpeg",
+    "static/media/10.jpeg": "/clemann/static/media/10.a68b3ed03f79bf988da2.jpeg",
     "static/media/7.jpeg": "/clemann/static/media/7.8715a53525c950ef300f.jpeg",
+    "static/media/3.jpeg": "/clemann/static/media/3.464abd176b0c3088b4b9.jpeg",
     "static/media/5.jpeg": "/clemann/static/media/5.d0f54e9f95cc9e08a63c.jpeg",
     "static/media/2.jpeg": "/clemann/static/media/2.ec8b031f9aea5e246202.jpeg",
+    "static/media/12.jpeg": "/clemann/static/media/12.809657fa64da3ec60df1.jpeg",
     "static/media/11.jpeg": "/clemann/static/media/11.9430ec2c289a1ec4ad38.jpeg",
-    "static/media/3.jpeg": "/clemann/static/media/3.d97191f5fe16a0c17aad.jpeg",
     "static/media/6.jpeg": "/clemann/static/media/6.c7954a08d423aaa34e39.jpeg",
     "static/media/1.jpeg": "/clemann/static/media/1.81a297881ccf6671dfba.jpeg",
     "static/media/8.jpeg": "/clemann/static/media/8.216c33e9174835477de5.jpeg",
@@ -22,11 +24,11 @@
     "index.html": "/clemann/index.html",
     "static/media/logo.svg": "/clemann/static/media/logo.fc97222a156ceb9711f703108686d6c0.svg",
     "main.8509b6dc.css.map": "/clemann/static/css/main.8509b6dc.css.map",
-    "main.c49a9680.js.map": "/clemann/static/js/main.c49a9680.js.map",
+    "main.d736592e.js.map": "/clemann/static/js/main.d736592e.js.map",
     "453.23de91bd.chunk.js.map": "/clemann/static/js/453.23de91bd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8509b6dc.css",
-    "static/js/main.c49a9680.js"
+    "static/js/main.d736592e.js"
   ]
 }

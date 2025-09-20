@@ -105,6 +105,30 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Scroll reveal on viewport
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll('.reveal')) as HTMLElement[];
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // If reduced motion or no IntersectionObserver support, reveal immediately
+    if (prefersReduced || typeof window === 'undefined' || !(window as any).IntersectionObserver) {
+      nodes.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+    nodes.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToTop = () => {
     const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
@@ -199,10 +223,10 @@ function App() {
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
-                className="w-full h-96 md:h-[32rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream dark:ring-offset-gray-900 drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
+                className="reveal w-full h-96 md:h-[32rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream dark:ring-offset-gray-900 drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
               />
             </div>
-            <div className="text-center md:text-left">
+            <div className="reveal text-center md:text-left">
               <p className="text-accent uppercase tracking-widest text-sm mb-3">We’re getting married!</p>
               <h1 className="font-display text-4xl md:text-6xl tracking-tight leading-tight mb-4">Clemence Ayekple & Antoinette Seyram Agbo</h1>
               <p className="text-lg md:text-xl text-primary/80 dark:text-white/90">Saturday, October 25, 2025</p>
@@ -256,13 +280,13 @@ function App() {
       <main id="mainContent" aria-hidden={lightbox.open} tabIndex={-1}>
         {/* Gallery */}
         <section id="gallery" aria-labelledby="gallery-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
-          <h2 id="gallery-heading" className="font-display text-3xl md:text-4xl mb-6">Our Gallery</h2>
-          <p className="text-primary/70 dark:text-white/80 mb-8">Some of our favorite moments together.</p>
+          <h2 id="gallery-heading" className="reveal font-display text-3xl md:text-4xl mb-6">Our Gallery</h2>
+          <p className="reveal text-primary/70 dark:text-white/80 mb-8">Some of our favorite moments together.</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {media.map((item) => (
               <button
                 key={item.src}
-                className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-primary/10 bg-white/20 backdrop-blur-sm shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream transform hover:-translate-y-0.5 dark:bg-white/5 dark:border-white/10 dark:focus-visible:ring-offset-gray-900"
+                className="reveal group relative aspect-[4/3] overflow-hidden rounded-lg border border-primary/10 bg-white/20 backdrop-blur-sm shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream transform hover:-translate-y-0.5 dark:bg-white/5 dark:border-white/10 dark:focus-visible:ring-offset-gray-900"
                 onClick={() => onOpenLightbox(item.kind, item.src, item.alt)}
                 aria-label={`Open ${item.kind === 'video' ? 'video' : 'photo'}: ${item.alt}`}
               >
@@ -284,8 +308,8 @@ function App() {
         {/* Program */}
         <section id="program" aria-labelledby="program-heading" className="bg-gradient-to-r from-rose-50/60 via-cream/70 to-emerald-50/60 dark:bg-gray-900/20 py-14 md:py-20 scroll-mt-24">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 id="program-heading" className="font-display text-3xl md:text-4xl mb-6">Program of the Day</h2>
-            <ul className="grid md:grid-cols-3 gap-6">
+            <h2 id="program-heading" className="reveal font-display text-3xl md:text-4xl mb-6">Program of the Day</h2>
+            <ul className="reveal grid md:grid-cols-3 gap-6">
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
                 <h3 className="font-semibold"><span aria-hidden="true">🎶 </span>Musical Interlude</h3>
                 <p className="text-primary/70 dark:text-white/70">10:00 AM</p>
@@ -335,8 +359,8 @@ function App() {
         
         {/* Song 131 */}
         <section id="song-131" aria-labelledby="song131-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 text-center scroll-mt-24">
-          <h2 id="song131-heading" className="font-display text-3xl md:text-4xl mb-2">Song 131 — “What God Has Yoked Together”</h2>
-          <p className="text-primary/70 mb-6">(Matthew 19:5, 6)</p>
+          <h2 id="song131-heading" className="reveal font-display text-3xl md:text-4xl mb-2">Song 131 — “What God Has Yoked Together”</h2>
+          <p className="reveal text-primary/70 mb-6">(Matthew 19:5, 6)</p>
           <div className="space-y-6 leading-relaxed text-primary/90">
             <div>
               <h3 className="font-semibold mb-2">1. Verse</h3>
@@ -371,8 +395,8 @@ function App() {
 
         {/* Song 132 */}
         <section id="song-132" aria-labelledby="song132-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 text-center scroll-mt-24">
-          <h2 id="song132-heading" className="font-display text-3xl md:text-4xl mb-2">Song 132 — “Now We Are One”</h2>
-          <p className="text-primary/70 mb-6">(Genesis 2:23, 24)</p>
+          <h2 id="song132-heading" className="reveal font-display text-3xl md:text-4xl mb-2">Song 132 — “Now We Are One”</h2>
+          <p className="reveal text-primary/70 mb-6">(Genesis 2:23, 24)</p>
           <div className="space-y-6 leading-relaxed text-primary/90">
             <div>
               <h3 className="font-semibold mb-2">1. Verse</h3>
@@ -397,8 +421,8 @@ function App() {
 
         {/* Order of Photography */}
         <section id="photography" aria-labelledby="photography-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
-          <h2 id="photography-heading" className="font-display text-3xl md:text-4xl mb-6">Order of Photography</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <h2 id="photography-heading" className="reveal font-display text-3xl md:text-4xl mb-6">Order of Photography</h2>
+          <div className="reveal grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="font-semibold text-2xl mb-3">Couple with</h3>
               <ol className="list-decimal pl-6 space-y-2 text-primary/80">
@@ -434,11 +458,11 @@ function App() {
         
         {/* Side Activities */}
         <section id="side-activity" aria-labelledby="side-activity-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
-          <h2 id="side-activity-heading" className="font-display text-3xl md:text-4xl mb-6">Side Activity</h2>
-          <p className="text-primary/70 mb-8">A special keepsake alongside the main program.</p>
+          <h2 id="side-activity-heading" className="reveal font-display text-3xl md:text-4xl mb-6">Side Activity</h2>
+          <p className="reveal text-primary/70 mb-8">A special keepsake alongside the main program.</p>
 
           {/* Thumbprint Tree Guestbook */}
-          <div className="grid md:grid-cols-2 gap-8 items-center mb-10">
+          <div className="reveal grid md:grid-cols-2 gap-8 items-center mb-10">
             <div className="rounded-xl overflow-hidden border border-primary/10 bg-white dark:bg-gray-800 dark:border-white/10">
               <img src={treeImg} alt="Thumbprint tree guestbook" loading="lazy" className="w-full h-auto object-contain" />
             </div>
@@ -458,8 +482,8 @@ function App() {
 
         {/* Reception */}
         <section id="reception" aria-labelledby="reception-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
-          <h2 id="reception-heading" className="font-display text-3xl md:text-4xl mb-6">Reception</h2>
-          <div className="grid md:grid-cols-2 gap-8 items-start">
+          <h2 id="reception-heading" className="reveal font-display text-3xl md:text-4xl mb-6">Reception</h2>
+          <div className="reveal grid md:grid-cols-2 gap-8 items-start">
             <div>
               <p className="text-primary/80">St. George’s Height</p>
               <p className="text-primary/60">Dobro on the Nsawam road</p>

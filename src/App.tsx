@@ -212,7 +212,7 @@ function App() {
       </nav>
 
       {/* Hero */}
-      <header id="home" className="relative isolate overflow-hidden">
+      <header id="home" className="relative isolate overflow-hidden bg-gradient-to-r from-rose-50 via-cream to-emerald-50 dark:bg-none">
         {/* Decorative background accents */}
         <div aria-hidden="true" className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-accent/10 blur-3xl"></div>
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-primary/5 blur-3xl"></div>
@@ -244,6 +244,21 @@ function App() {
                   <span aria-hidden="true">📍</span>
                   <span>Get Directions</span>
                 </a>
+                <div className="mt-10 flex items-center justify-center md:justify-start gap-6" aria-label="Wedding colors">
+                  <span className="sr-only">Wedding colors:</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="h-10 w-10 rounded-full bg-accent" aria-label="Rose Gold" title="Rose Gold"></span>
+                    <span className="text-sm text-primary/80 dark:text-white/80">Rose Gold</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="h-10 w-10 rounded-full bg-cream border border-primary/10" aria-label="Ivory" title="Ivory"></span>
+                    <span className="text-sm text-primary/80 dark:text-white/80">Ivory</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="h-10 w-10 rounded-full bg-primary" aria-label="Dark Emerald" title="Dark Emerald"></span>
+                    <span className="text-sm text-primary/80 dark:text-white/80">Dark Emerald</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

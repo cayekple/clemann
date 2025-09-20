@@ -9,6 +9,18 @@ function App() {
     { open: false, kind: 'image', src: '', alt: '' }
   );
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+    if (saved === 'light' || saved === 'dark') return saved as 'light' | 'dark';
+    const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  });
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') root.classList.add('dark'); else root.classList.remove('dark');
+    try { localStorage.setItem('theme', theme); } catch {}
+  }, [theme]);
   const prevFocusRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
@@ -75,6 +87,29 @@ function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox.open]);
 
+  // Show scroll-to-top button on scroll
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY || document.documentElement.scrollTop || 0;
+          setShowScrollTop(y > 300);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true } as any);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+  };
+
   // Build gallery from local images and videos.
   const images = getGalleryImages();
   const videos = getGalleryVideos();
@@ -84,13 +119,13 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream to-white text-primary font-body">
+    <div className="min-h-screen bg-gradient-to-b from-rose-50 via-cream to-emerald-50 text-primary font-body dark:from-gray-900 dark:to-gray-950 dark:text-white">
       {/* Skip to content for accessibility */}
       <a href="#mainContent" className="absolute left-[-9999px] focus:left-4 focus:top-4 focus:z-50 focus:bg-cream focus:text-primary focus:px-3 focus:py-2 focus:rounded-md focus:shadow" aria-label="Skip to main content">
         Skip to content
       </a>
       {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-primary/10">
+      <nav className="sticky top-0 z-40 bg-gradient-to-r from-rose-50/80 via-cream/90 to-emerald-50/80 dark:bg-none backdrop-blur border-b border-primary/10 dark:bg-gray-900/80 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between relative">
           <a href="#home" className="inline-flex items-center gap-2" aria-label="Clemence & Antoinette">
             <img src={logo} alt="Clemence & Antoinette logo" className="h-10 w-auto" />
@@ -108,6 +143,16 @@ function App() {
                 <span>Directions</span>
               </a>
             </div>
+            <button
+              type="button"
+              aria-pressed={theme === 'dark'}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+              className="rounded-md px-3 py-2 border border-primary/10 hover:bg-black/5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:hover:bg-white/10"
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
+              <span aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
+            </button>
             <div className="md:hidden">
               <button
                 type="button"
@@ -123,7 +168,7 @@ function App() {
           </div>
         </div>
         {menuOpen && (
-          <div id="mobile-menu" className="md:hidden absolute left-0 right-0 top-full bg-cream/95 border-b border-primary/10">
+          <div id="mobile-menu" className="md:hidden absolute left-0 right-0 top-full bg-cream/95 border-b border-primary/10 dark:bg-gray-900/90 dark:border-white/10">
             <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm">
               <a href="#gallery" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Gallery</a>
               <a href="#program" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Program</a>
@@ -154,14 +199,14 @@ function App() {
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
-                className="w-full h-96 md:h-[32rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
+                className="w-full h-96 md:h-[32rem] object-cover rounded-md border border-primary/10 ring-4 ring-accent/60 ring-offset-2 ring-offset-cream dark:ring-offset-gray-900 drop-shadow-[0_0_28px_rgba(180,120,104,0.55)]"
               />
             </div>
             <div className="text-center md:text-left">
               <p className="text-accent uppercase tracking-widest text-sm mb-3">We’re getting married!</p>
               <h1 className="font-display text-4xl md:text-6xl tracking-tight leading-tight mb-4">Clemence Ayekple & Antoinette Seyram Agbo</h1>
-              <p className="text-lg md:text-xl text-primary/80">Saturday, October 25, 2025</p>
-              <p className="text-base md:text-lg text-primary/70">St. George’s Height, Dobro on the Nsawam road</p>
+              <p className="text-lg md:text-xl text-primary/80 dark:text-white/90">Saturday, October 25, 2025</p>
+              <p className="text-base md:text-lg text-primary/70 dark:text-white/80">St. George’s Height, Dobro on the Nsawam road</p>
               <div className="mt-4">
                 <a
                   href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw"
@@ -182,26 +227,26 @@ function App() {
       {countdown && (
         <section id="countdown" aria-label="Wedding countdown" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
           {countdown.done ? (
-            <p className="font-display text-4xl md:text-6xl text-primary text-center" aria-live="polite" aria-atomic="true">
+            <p className="font-display text-4xl md:text-6xl text-primary text-center dark:text-white" aria-live="polite" aria-atomic="true">
               Happily Married!
             </p>
           ) : (
             <div role="timer" aria-live="polite" aria-atomic="true" className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm">
-                <div className="font-display text-5xl md:text-7xl text-primary">{countdown.d}</div>
-                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70">Days</div>
+              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm dark:bg-gray-800 dark:border-white/10">
+                <div className="font-display text-5xl md:text-7xl text-primary dark:text-white">{countdown.d}</div>
+                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70 dark:text-white/70">Days</div>
               </div>
-              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm">
-                <div className="font-display text-5xl md:text-7xl text-primary">{String(countdown.h).padStart(2, '0')}</div>
-                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70">Hours</div>
+              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm dark:bg-gray-800 dark:border-white/10">
+                <div className="font-display text-5xl md:text-7xl text-primary dark:text-white">{String(countdown.h).padStart(2, '0')}</div>
+                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70 dark:text-white/70">Hours</div>
               </div>
-              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm">
-                <div className="font-display text-5xl md:text-7xl text-primary">{String(countdown.m).padStart(2, '0')}</div>
-                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70">Minutes</div>
+              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm dark:bg-gray-800 dark:border-white/10">
+                <div className="font-display text-5xl md:text-7xl text-primary dark:text-white">{String(countdown.m).padStart(2, '0')}</div>
+                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70 dark:text-white/70">Minutes</div>
               </div>
-              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm">
-                <div className="font-display text-5xl md:text-7xl text-primary">{String(countdown.s).padStart(2, '0')}</div>
-                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70">Seconds</div>
+              <div className="rounded-xl border border-primary/10 bg-white p-6 text-center shadow-sm dark:bg-gray-800 dark:border-white/10">
+                <div className="font-display text-5xl md:text-7xl text-primary dark:text-white">{String(countdown.s).padStart(2, '0')}</div>
+                <div className="mt-2 text-sm uppercase tracking-widest text-primary/70 dark:text-white/70">Seconds</div>
               </div>
             </div>
           )}
@@ -212,12 +257,12 @@ function App() {
         {/* Gallery */}
         <section id="gallery" aria-labelledby="gallery-heading" className="max-w-6xl mx-auto px-4 py-14 md:py-20 scroll-mt-24">
           <h2 id="gallery-heading" className="font-display text-3xl md:text-4xl mb-6">Our Gallery</h2>
-          <p className="text-primary/70 mb-8">Some of our favorite moments together.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <p className="text-primary/70 dark:text-white/80 mb-8">Some of our favorite moments together.</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {media.map((item) => (
               <button
                 key={item.src}
-                className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-primary/10 bg-white/20 backdrop-blur-sm shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream transform hover:-translate-y-0.5"
+                className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-primary/10 bg-white/20 backdrop-blur-sm shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream transform hover:-translate-y-0.5 dark:bg-white/5 dark:border-white/10 dark:focus-visible:ring-offset-gray-900"
                 onClick={() => onOpenLightbox(item.kind, item.src, item.alt)}
                 aria-label={`Open ${item.kind === 'video' ? 'video' : 'photo'}: ${item.alt}`}
               >
@@ -237,44 +282,51 @@ function App() {
         </section>
 
         {/* Program */}
-        <section id="program" aria-labelledby="program-heading" className="bg-white/60 py-14 md:py-20 scroll-mt-24">
+        <section id="program" aria-labelledby="program-heading" className="bg-gradient-to-r from-rose-50/60 via-cream/70 to-emerald-50/60 dark:bg-gray-900/20 py-14 md:py-20 scroll-mt-24">
           <div className="max-w-6xl mx-auto px-4">
             <h2 id="program-heading" className="font-display text-3xl md:text-4xl mb-6">Program of the Day</h2>
             <ul className="grid md:grid-cols-3 gap-6">
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Musical Interlude</h3>
-                <p className="text-primary/70">10:00 AM • St. George’s Height, Dobro on the Nsawam road</p>
-                <p className="mt-2 text-sm text-primary/70">Prelude music to welcome everyone.</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">🎶 </span>Musical Interlude</h3>
+                <p className="text-primary/70 dark:text-white/70">10:00 AM</p>
+                <p className="mt-2 text-sm text-primary/70 dark:text-white/70">Prelude music to welcome everyone.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-100 to-emerald-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Vibes only ✨</span></div>
               </li>
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Arrival of Guests</h3>
-                <p className="text-primary/70">11:00 AM • St. George’s Height, Dobro on the Nsawam road</p>
-                <p className="mt-2 text-sm text-primary/70">Guests arrive and take their seats.</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">🫶 </span>Arrival of Guests</h3>
+                <p className="text-primary/70 dark:text-white/70">11:00 AM</p>
+                <p className="mt-2 text-sm text-primary/70 dark:text-white/70">Guests arrive and take their seats.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-emerald-100 to-rose-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Find your bestie seat 👯‍♀️</span></div>
               </li>
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Arrival of Groom & Bride</h3>
-                <p className="text-primary/70">11:45 AM • St. George’s Height, Dobro on the Nsawam road</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">💍 </span>Arrival of Groom & Bride</h3>
+                <p className="text-primary/70">11:45 AM</p>
                 <p className="mt-2 text-sm text-primary/70">Processional and grand entrance.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-100 to-emerald-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Cue the confetti 🎉</span></div>
               </li>
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Chairman's Opening Remarks</h3>
-                <p className="text-primary/70">11:50 AM • St. George’s Height, Dobro on the Nsawam road</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">🎤 </span>Chairman's Opening Remarks</h3>
+                <p className="text-primary/70">11:50 AM</p>
                 <p className="mt-2 text-sm text-primary/70">Welcome and opening address by the chairman.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-emerald-100 to-rose-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">It’s showtime! 🎬</span></div>
               </li>
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Song 131 & Opening Prayer</h3>
-                <p className="text-primary/70">11:55 AM • St. George’s Height, Dobro on the Nsawam road</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">🕊️ </span>Song 131 & Opening Prayer</h3>
+                <p className="text-primary/70">11:55 AM</p>
                 <p className="mt-2 text-sm text-primary/70">Congregational song followed by prayer.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-100 to-emerald-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Sing it out! 🎵</span></div>
               </li>
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Marriage Discourse "Honorable Marriage in God's Sight"</h3>
-                <p className="text-primary/70">12:00 PM • St. George’s Height, Dobro on the Nsawam road</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">📖 </span>Marriage Discourse "Honorable Marriage in God's Sight"</h3>
+                <p className="text-primary/70">12:00 PM</p>
                 <p className="mt-2 text-sm text-primary/70">A discourse on the sanctity and honor of marriage.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-emerald-100 to-rose-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Words to cherish 💗</span></div>
               </li>
-              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5">
-                <h3 className="font-semibold">Song 132 & Closing Prayer</h3>
-                <p className="text-primary/70">12:30 PM • St. George’s Height, Dobro on the Nsawam road</p>
+              <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
+                <h3 className="font-semibold"><span aria-hidden="true">🎶 </span>Song 132 & Closing Prayer</h3>
+                <p className="text-primary/70">12:30 PM</p>
                 <p className="mt-2 text-sm text-primary/70">Final song and closing prayer.</p>
+                <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-100 to-emerald-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">One last chorus! ✨</span></div>
               </li>
             </ul>
           </div>
@@ -387,7 +439,7 @@ function App() {
 
           {/* Thumbprint Tree Guestbook */}
           <div className="grid md:grid-cols-2 gap-8 items-center mb-10">
-            <div className="rounded-xl overflow-hidden border border-primary/10 bg-white">
+            <div className="rounded-xl overflow-hidden border border-primary/10 bg-white dark:bg-gray-800 dark:border-white/10">
               <img src={treeImg} alt="Thumbprint tree guestbook" loading="lazy" className="w-full h-auto object-contain" />
             </div>
             <div>
@@ -440,7 +492,7 @@ function App() {
                     </ol>
                 </div>
             </div>
-              <div className="rounded-xl overflow-hidden border border-primary/10">
+              <div className="rounded-xl overflow-hidden border border-primary/10 dark:border-white/10">
                   <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1016748.4486248771!2d-1.4447492699217541!3d5.466389923746282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf0b0f14c4c71f%3A0xed87a48bbb7779d9!2sSt%20George&#39;s%20Height!5e0!3m2!1sen!2sgh!4v1758265450386!5m2!1sen!2sgh"
                       loading="lazy"
@@ -458,6 +510,19 @@ function App() {
 
       </main>
 
+      {/* Scroll to Top */}
+      {showScrollTop && !lightbox.open && (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          title="Scroll to top"
+          className="fixed bottom-6 right-6 z-40 rounded-full bg-accent text-white shadow-lg hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream dark:focus-visible:ring-offset-gray-900 transition transform hover:-translate-y-0.5 active:translate-y-0 w-12 h-12 flex items-center justify-center border border-primary/10 dark:border-white/10"
+        >
+          <span aria-hidden="true" className="text-xl leading-none">↑</span>
+        </button>
+      )}
+
         {/* Lightbox Modal */}
         {lightbox.open && (
             <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" role="dialog"
@@ -466,7 +531,7 @@ function App() {
                     <button
                         ref={closeBtnRef}
               onClick={onCloseLightbox}
-              className="absolute -top-3 -right-3 bg-white text-primary rounded-full w-10 h-10 shadow focus:outline-none focus:ring-2 focus:ring-accent"
+              className="absolute -top-3 -right-3 bg-white text-gray-900 rounded-full w-10 h-10 shadow focus:outline-none focus:ring-2 focus:ring-accent"
               aria-label="Close"
             >
               ✕
@@ -481,7 +546,7 @@ function App() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-primary/10 py-8 text-center text-sm text-primary/70" aria-hidden={lightbox.open}>
+      <footer className="border-t border-primary/10 dark:border-white/10 py-8 text-center text-sm text-primary/70" aria-hidden={lightbox.open}>
         <p>Made with love • Clemence & Antoinette • 2025</p>
       </footer>
     </div>

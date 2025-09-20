@@ -16,6 +16,11 @@ function App() {
     return prefersDark ? 'dark' : 'light';
   });
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('home');
+  const baseNav = "rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream";
+  const isActiveId = (id: string) => activeSection === id || (id === 'songs' && (activeSection === 'song-131' || activeSection === 'song-132'));
+  const linkClass = (id: string) => `${baseNav} ${isActiveId(id) ? 'text-accent font-semibold' : ''}`;
+  const ariaCurrent = (id: string) => (isActiveId(id) ? 'page' : undefined);
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') root.classList.add('dark'); else root.classList.remove('dark');
@@ -90,16 +95,36 @@ function App() {
   // Show scroll-to-top button on scroll
   useEffect(() => {
     let ticking = false;
+
+    const ids = ['home','gallery','program','song-131','song-132','photography','side-activity','reception','rsvp'];
+    const getActive = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      const offset = 120; // approximate sticky header + padding
+      const targetY = y + offset;
+      let current = 'home';
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.offsetTop;
+        if (top <= targetY) current = id; else break;
+      }
+      return current;
+    };
+
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const y = window.scrollY || document.documentElement.scrollTop || 0;
           setShowScrollTop(y > 300);
+          const current = getActive();
+          setActiveSection((prev) => (prev !== current ? current : prev));
           ticking = false;
         });
         ticking = true;
       }
     };
+
+    // initial
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true } as any);
     return () => window.removeEventListener('scroll', onScroll);
@@ -156,13 +181,13 @@ function App() {
           </a>
           <div className="flex items-center gap-2">
             <div id="primary-menu" className="hidden md:flex space-x-4 text-sm">
-              <a href="#gallery" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Gallery</a>
-              <a href="#program" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Program</a>
-              <a href="#song-131" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Songs</a>
-              <a href="#side-activity" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Side Activity</a>
-              <a href="#photography" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Photography</a>
-              <a href="#reception" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">Reception</a>
-              <a href="#rsvp" className="rounded-md px-2 py-1 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream">RSVP</a>
+              <a href="#gallery" className={linkClass('gallery')} aria-current={ariaCurrent('gallery')}>Gallery</a>
+              <a href="#program" className={linkClass('program')} aria-current={ariaCurrent('program')}>Program</a>
+              <a href="#song-131" className={linkClass('songs')} aria-current={ariaCurrent('songs')}>Songs</a>
+              <a href="#photography" className={linkClass('photography')} aria-current={ariaCurrent('photography')}>Photography</a>
+              <a href="#side-activity" className={linkClass('side-activity')} aria-current={ariaCurrent('side-activity')}>Side Activity</a>
+              <a href="#reception" className={linkClass('reception')} aria-current={ariaCurrent('reception')}>Reception</a>
+              <a href="#rsvp" className={linkClass('rsvp')} aria-current={ariaCurrent('rsvp')}>RSVP</a>
               <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream" aria-label="Open directions in Google Maps (opens in new tab)">
                 <span aria-hidden="true">📍</span>
                 <span>Directions</span>
@@ -195,13 +220,13 @@ function App() {
         {menuOpen && (
           <div id="mobile-menu" className="md:hidden absolute left-0 right-0 top-full bg-cream/95 border-b border-primary/10 dark:bg-gray-900/90 dark:border-white/10">
             <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm">
-              <a href="#gallery" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Gallery</a>
-              <a href="#program" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Program</a>
-              <a href="#song-131" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Songs</a>
-              <a href="#side-activity" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Side Activity</a>
-              <a href="#photography" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Photography</a>
-              <a href="#reception" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">Reception</a>
-              <a href="#rsvp" onClick={() => setMenuOpen(false)} className="rounded-md px-2 py-1 hover:text-accent">RSVP</a>
+              <a href="#gallery" onClick={() => setMenuOpen(false)} className={linkClass('gallery')} aria-current={ariaCurrent('gallery')}>Gallery</a>
+              <a href="#program" onClick={() => setMenuOpen(false)} className={linkClass('program')} aria-current={ariaCurrent('program')}>Program</a>
+              <a href="#song-131" onClick={() => setMenuOpen(false)} className={linkClass('songs')} aria-current={ariaCurrent('songs')}>Songs</a>
+              <a href="#photography" onClick={() => setMenuOpen(false)} className={linkClass('photography')} aria-current={ariaCurrent('photography')}>Photography</a>
+              <a href="#side-activity" onClick={() => setMenuOpen(false)} className={linkClass('side-activity')} aria-current={ariaCurrent('side-activity')}>Side Activity</a>
+              <a href="#reception" onClick={() => setMenuOpen(false)} className={linkClass('reception')} aria-current={ariaCurrent('reception')}>Reception</a>
+              <a href="#rsvp" onClick={() => setMenuOpen(false)} className={linkClass('rsvp')} aria-current={ariaCurrent('rsvp')}>RSVP</a>
               <a href="https://maps.app.goo.gl/4DUjqpYckgba1k2w8?g_st=iw" target="_blank" rel="noreferrer noopener" onClick={() => setMenuOpen(false)} className="inline-flex items-center gap-2 rounded-md bg-accent text-white px-3 py-1.5 shadow hover:bg-primary transition">
                 <span aria-hidden="true">📍</span>
                 <span>Directions</span>

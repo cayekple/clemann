@@ -542,7 +542,7 @@ function App() {
                 <div className="mt-10">
                     <h3 className="font-semibold text-2xl mb-3">Program schedule</h3>
                     <ol className="list-decimal pl-6 space-y-2 text-primary/80" aria-label="Program for the reception">
-                        <li>Musical Interlude at 1:20pm</li>
+                        <li>Musical Interlude at 1:10pm</li>
                         <li>Arrival of Bride & Groom</li>
                         <li>Musical Interlude & Refreshment</li>
                         <li>Bride & Groom first dance</li>

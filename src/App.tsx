@@ -5,8 +5,8 @@ import treeImg from './assets/tree.jpeg';
 import { getGalleryImages, getGalleryVideos } from './gallery';
 
 function App() {
-  const [lightbox, setLightbox] = useState<{ open: boolean; kind: 'image' | 'video'; src: string; alt: string }>(
-    { open: false, kind: 'image', src: '', alt: '' }
+  const [lightbox, setLightbox] = useState<{ open: boolean; kind: 'image' | 'video'; src: string; alt: string; index: number }>(
+    { open: false, kind: 'image', src: '', alt: '', index: -1 }
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -29,13 +29,15 @@ function App() {
   const prevFocusRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  const onOpenLightbox = (kind: 'image' | 'video', src: string, alt: string) => {
+  const onOpenLightboxAt = (index: number) => {
     prevFocusRef.current = document.activeElement as HTMLElement;
-    setLightbox({ open: true, kind, src, alt });
+    const item = media[index];
+    if (!item) return;
+    setLightbox({ open: true, kind: item.kind, src: item.src, alt: item.alt, index });
   };
 
   const onCloseLightbox = () => {
-    setLightbox({ open: false, kind: 'image', src: '', alt: '' });
+    setLightbox({ open: false, kind: 'image', src: '', alt: '', index: -1 });
     prevFocusRef.current?.focus?.();
   };
 
@@ -79,18 +81,40 @@ function App() {
     };
   }, [weddingDate]);
 
-  // Close on ESC when lightbox is open
+  // Build gallery from local images and videos (memoized)
+  const images = useMemo(() => getGalleryImages(), []);
+  const videos = useMemo(() => getGalleryVideos(), []);
+  const media = useMemo(() => [
+    ...images.map((i) => ({ kind: 'image' as const, ...i })),
+    ...videos.map((v) => ({ kind: 'video' as const, ...v })),
+  ], [images, videos]);
+
+  // Keyboard controls when lightbox is open
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onCloseLightbox();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (media.length > 1) {
+          const next = (lightbox.index + 1 + media.length) % media.length;
+          const item = media[next];
+          setLightbox({ open: true, kind: item.kind, src: item.src, alt: item.alt, index: next });
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (media.length > 1) {
+          const prev = (lightbox.index - 1 + media.length) % media.length;
+          const item = media[prev];
+          setLightbox({ open: true, kind: item.kind, src: item.src, alt: item.alt, index: prev });
+        }
       }
     };
     if (lightbox.open) {
       window.addEventListener('keydown', onKey);
     }
     return () => window.removeEventListener('keydown', onKey);
-  }, [lightbox.open]);
+  }, [lightbox.open, lightbox.index, media]);
 
   // Show scroll-to-top button on scroll
   useEffect(() => {
@@ -159,13 +183,6 @@ function App() {
     window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
   };
 
-  // Build gallery from local images and videos.
-  const images = getGalleryImages();
-  const videos = getGalleryVideos();
-  const media = [
-    ...images.map((i) => ({ kind: 'image' as const, ...i })),
-    ...videos.map((v) => ({ kind: 'video' as const, ...v })),
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 via-cream to-emerald-50 text-primary font-body dark:from-gray-900 dark:to-gray-950 dark:text-white">
@@ -339,11 +356,11 @@ function App() {
           <h2 id="gallery-heading" className="reveal font-display text-3xl md:text-4xl mb-6">Our Gallery</h2>
           <p className="reveal text-primary/70 dark:text-white/80 mb-8">Some of our favorite moments together.</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {media.map((item) => (
+            {media.map((item, i) => (
               <button
                 key={item.src}
                 className="reveal group relative aspect-[4/3] overflow-hidden rounded-lg border border-primary/10 bg-white/20 backdrop-blur-sm shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream transform hover:-translate-y-0.5 dark:bg-white/5 dark:border-white/10 dark:focus-visible:ring-offset-gray-900"
-                onClick={() => onOpenLightbox(item.kind, item.src, item.alt)}
+                onClick={() => onOpenLightboxAt(i)}
                 aria-label={`Open ${item.kind === 'video' ? 'video' : 'photo'}: ${item.alt}`}
               >
                 {item.kind === 'video' ? (
@@ -645,6 +662,40 @@ function App() {
             >
               ✕
             </button>
+
+            {media.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white/90 text-gray-900 rounded-full w-10 h-10 shadow focus:outline-none focus:ring-2 focus:ring-accent border border-primary/10 hover:bg-white"
+                  aria-label="Previous"
+                  title="Previous (Arrow Left)"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const prev = (lightbox.index - 1 + media.length) % media.length;
+                    const item = media[prev];
+                    setLightbox({ open: true, kind: item.kind, src: item.src, alt: item.alt, index: prev });
+                  }}
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white/90 text-gray-900 rounded-full w-10 h-10 shadow focus:outline-none focus:ring-2 focus:ring-accent border border-primary/10 hover:bg-white"
+                  aria-label="Next"
+                  title="Next (Arrow Right)"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const next = (lightbox.index + 1 + media.length) % media.length;
+                    const item = media[next];
+                    setLightbox({ open: true, kind: item.kind, src: item.src, alt: item.alt, index: next });
+                  }}
+                >
+                  ›
+                </button>
+              </>
+            )}
+
             {lightbox.kind === 'video' ? (
               <video src={lightbox.src} controls autoPlay playsInline className="w-full rounded-lg" />
             ) : (

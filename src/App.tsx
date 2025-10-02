@@ -397,19 +397,19 @@ function App() {
               </li>
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
                 <h3 className="font-semibold"><span aria-hidden="true">💍 </span>Arrival of Groom & Bride</h3>
-                <p className="text-primary/70">12:15 AM</p>
+                <p className="text-primary/70">12:15 PM</p>
                 <p className="mt-2 text-sm text-primary/70">Processional and grand entrance.</p>
                 <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-100 to-emerald-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Cue the confetti 🎉</span></div>
               </li>
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
                 <h3 className="font-semibold"><span aria-hidden="true">🎤 </span>Chairman's Opening Remarks</h3>
-                <p className="text-primary/70">12:20 AM</p>
+                <p className="text-primary/70">12:20 PM</p>
                 <p className="mt-2 text-sm text-primary/70">Welcome and opening address by the chairman.</p>
                 <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-emerald-100 to-rose-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">It’s showtime! 🎬</span></div>
               </li>
               <li className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-primary/20 transform hover:-translate-y-0.5 dark:bg-gray-800 dark:border-white/10">
                 <h3 className="font-semibold"><span aria-hidden="true">🕊️ </span>Song 131 & Opening Prayer</h3>
-                <p className="text-primary/70">12:25 AM</p>
+                <p className="text-primary/70">12:25 PM</p>
                 <p className="mt-2 text-sm text-primary/70">Congregational song followed by prayer.</p>
                 <div className="mt-3"><span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-100 to-emerald-100 text-primary/80 border border-primary/10 dark:from-gray-700 dark:to-gray-600 dark:text-white/90">Sing it out! 🎵</span></div>
               </li>

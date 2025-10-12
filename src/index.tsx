@@ -4,13 +4,17 @@ import './tailwind.css';
 import './dark-overrides.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Maintenance from './Maintenance';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const isMaintenance = process.env.REACT_APP_MAINTENANCE ? (process.env.REACT_APP_MAINTENANCE === 'true') : true;
+
 root.render(
   <React.StrictMode>
-    <App />
+    {isMaintenance ? <Maintenance /> : <App />}
   </React.StrictMode>
 );
 

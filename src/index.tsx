@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const isMaintenance = process.env.REACT_APP_MAINTENANCE ? (process.env.REACT_APP_MAINTENANCE === 'true') : true;
+const isMaintenance = process.env.REACT_APP_MAINTENANCE ? (process.env.REACT_APP_MAINTENANCE === 'true') : false;
 
 root.render(
   <React.StrictMode>
